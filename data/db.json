@@ -1,0 +1,24 @@
+{
+  "mails": [
+    {
+      "name": "Neo",
+      "recipient": "Neo11@gmail.com",
+      "subject": "Regarding the matrix",
+      "schedule": "recurring",
+      "body": "lorem lorem ipsem set color consectetur lorem lorem ipsem set color consectetur lorem lorem ipsem set color consectetur lorem lorem ipsem set color consectetur lorem lorem ipsem set color consectetur lorem lorem ipsem set color consectetur.",
+      "date": "2021-07-03",
+      "time": "16:31",
+      "id": 12
+    },
+    {
+      "name": "lio",
+      "recipient": "Lio211@gmail.com",
+      "subject": "Regarding shutter island",
+      "schedule": "monthly",
+      "body": "lorem lorem ipsem set color consectetur lorem lorem ipsem set color consectetur lorem lorem ipsem set color consecteturlorem lorem ipsem set color consecteturlorem lorem ipsem set color consecteturlorem lorem ipsem set color consecteturlorem lorem ipsem set color consecteturlorem lorem ipsem set color consectetur lorem lorem ipsem set color consectetur.",
+      "date": "2021-07-03",
+      "time": "16:36",
+      "id": 13
+    }
+  ]
+}
