@@ -6,7 +6,7 @@
     "node" : "14.16.1"
   },
   "private": true,
-  "proxy": "http://localhost:8000",
+  "proxy": "https://whispering-lake-15825.herokuapp.com/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
