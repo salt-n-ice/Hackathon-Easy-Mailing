@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const MailList = ({ mails, title}) => {
     return (
         <div className="mail-list">
-            <h2>{ title }</h2>
+            <h2 className="pghd">{ title }</h2>
             {mails.map(mail => (
                     <div className="mail-preview" key={mail.id}>
                         <Link to={`mails/${mail.id}`}>

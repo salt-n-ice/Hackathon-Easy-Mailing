@@ -30,8 +30,8 @@ const MailDetails = () => {
                     </div>
 
                     <div className="name-box">
-                        <h4> Senders name </h4>
-                        <p> senders mail: (Rsteve786@apple.com) </p>
+                        {/* <h4> Senders name </h4>
+                        <p> senders mail: (Rsteve786@apple.com) </p> */}
                         <p>(Scheduled {mail[0].schedule})</p>
                     </div>
 

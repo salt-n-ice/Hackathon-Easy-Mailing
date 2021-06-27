@@ -7,7 +7,7 @@
   color: #333;
 }
 .navbar {
-  padding: 20px;
+  padding: 15px;
   display: flex;
   align-items: center;
   max-width: 600px;
@@ -24,9 +24,16 @@
   margin-left: 16px;
   text-decoration: none;
   padding: 6px;
+  color: #f1356d;
 }
 .navbar a:hover {
+  color: #141112;
+}
+.nav-item a {
   color: #f1356d;
+}
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 .content {
   max-width: 600px;
@@ -50,6 +57,12 @@
 }
 .mail-preview a {
   text-decoration: none;
+}
+.mail-list .pghd {
+  font-size: 1.5rem;
+  color: #f1356d;
+  padding-left: 12px;
+  text-align: center;
 }
 /* mail details page */
 
@@ -143,6 +156,11 @@
   box-sizing: border-box;
   display: block;
 }
+
+.create textarea {
+  height: 200px;
+}
+
 .create button {
   background: #f1356d;
   color: #fff;
