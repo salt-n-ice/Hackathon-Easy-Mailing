@@ -51,7 +51,6 @@
 .mail-preview a {
   text-decoration: none;
 }
-
 /* mail details page */
 
 .subject-box {
@@ -78,7 +77,7 @@
   padding-right: 10px;
 }
 
-.name-box a {
+.name-box p {
   text-decoration: none;
   color: grey;
   /* font-size: 0.8rem; */
@@ -95,7 +94,7 @@
   padding-right: 10px;
 }
 
-.sent-to a {
+.sent-to p {
   text-decoration: none;
   color: grey;
 }

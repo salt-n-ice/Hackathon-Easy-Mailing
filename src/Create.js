@@ -13,7 +13,7 @@ const Create = () => {
     // const [author, setAuthor] = useState('yoshi');
 // the id property is automatically added by the server
     const [isPending, setIsPending] = useState(false);
-    const history = useHistory();
+    const hst = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,7 +29,7 @@ const Create = () => {
             console.log("new mail added");
             setIsPending(false);
             //history.go(-1)  this will take you 1 step back ie to the place where you came from
-            history.push("/"); //this takes you to the home page
+            hst.push("/"); //this takes you to the home page
         })
     }
     return (
