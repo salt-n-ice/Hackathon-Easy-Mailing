@@ -1,6 +1,10 @@
 {
   "name": "easy-mailing",
   "version": "0.1.0",
+  "engines" : {
+    "npm" : "7.19.0",
+    "node" : "14.16.1"
+  },
   "private": true,
   "proxy": "http://localhost:8000",
   "dependencies": {
