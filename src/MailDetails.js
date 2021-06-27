@@ -20,17 +20,35 @@ const MailDetails = () => {
             { isPending && <div>Loading....</div>}
             { error && <div>{ error }</div>}
             { mail && (
-                <article>
-                    <h2>{ mail[0].name }</h2>
-                    <p>{ mail[0].recipient }</p>
-                    <p>Subject: {mail[0].subject}</p>
-                    <p>Scheduling: {mail[0].schedule}</p>
-                    <div>{mail[0].body}</div>
-                    <ul>
-                        <li>Date: {mail[0].date}</li>
-                        <li>Time: {mail[0].time}</li>
-                    </ul>
-                    <button onClick={handleClick}>delete</button>
+                <article className="mailBox">
+                    <div className="subject-box">
+                        <h3 className="subject-text"> {mail[0].subject} </h3>
+                        <div className="time_n_date">
+                            <p>{mail[0].time}</p>
+                            <p>{mail[0].date}</p> 
+                        </div>
+                    </div>
+
+                    <div className="name-box">
+                        <h4> Senders name </h4>
+                        <a href=""> senders mail: (Rsteve786@apple.com) </a>
+                    </div>
+
+                    <div className="sent-to">
+                        <h5>To:</h5>
+                        <a href=""> {mail[0].recipient} </a>
+                    </div>
+
+                    <div className="mail-text-body">
+                        <p> 
+                            {mail[0].body}
+                        </p>
+                    </div>
+
+                    <div className="delete-button">
+                        <button onClick={handleClick}>delete</button>
+                    </div>
+                    
                 </article>
             )}
         </div>

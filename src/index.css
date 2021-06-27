@@ -51,22 +51,64 @@
 .mail-preview a {
   text-decoration: none;
 }
-/* mail details page */
-.mail-details h2 {
-  font-size: 20px;
-  color: #f1356d;
-  margin-bottom: 10px;
-}
-.mail-details div {
-  margin: 20px 0;
-}
 
 /* mail details page */
+
+.subject-box {
+  text-align: left;
+  padding-bottom: 20px;
+}
+
+.subject-text {
+  display: inline-block;
+}
+
+.time_n_date {
+  /* display: inline-block; */
+  float: right;
+}
+
+.time_n_date p {
+  margin: 0;
+}
+
+.name-box h4 {
+  font-size: 1.3rem;
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.name-box a {
+  text-decoration: none;
+  color: grey;
+  /* font-size: 0.8rem; */
+}
+
+/* .sent-to {
+  padding-top: 10px;
+  padding-bottom: 10px;
+} */
+
+.sent-to h5 {
+  font-size: 1.3rem;
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.sent-to a {
+  text-decoration: none;
+  color: grey;
+}
+/* 
+.mail-text-body {
+  padding-top: 20px;
+}
+
 .mail-details h2 {
   font-size: 20px;
   color: #f1356d;
   margin-bottom: 10px;
-}
+}*/
 .mail-details div {
   margin: 20px 0;
 }
@@ -77,7 +119,7 @@
   padding: 8px;
   border-radius: 8px;
   cursor: pointer;
-}
+} 
 
 /* create new mail form */
 .create {
