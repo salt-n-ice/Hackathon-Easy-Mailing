@@ -12,6 +12,10 @@ app.use(cors());
 // app.use(express.static("public"));
 app.use(bodyParser.json({extended: false}));
 
+// parameters
+var limit = 1000;
+
+
 mongoose.connect("mongodb+srv://admin-prakhar:cowardlycourage@cluster0.0c4sc.mongodb.net/email", {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -28,12 +32,50 @@ const emailSchema = new mongoose.Schema({
 });
 const Email = mongoose.model("Email", emailSchema);
 
-var listeners = new Map([]);
-var intervalId = new Map([]);
+var listeners = new Map();
 
 // start all the listeners again if server restarts
 // setAll();
 
+
+app.get("/login", function(req, res){
+  var email = req.query.email, password = req.query.pw;
+  //verify the password and email
+  Email.findOne({email : email}, function(err, docs){
+    if(err) console.log(err);
+    else{
+      if(docs){
+        if(docs.password==password){
+          //redirect to home with parameters passed as email and newUserId
+          var url = "/mail-detail/?email=" + email+"&userId=" + docs.userId;
+          res.send({url : url});
+        }
+        else{
+          //redirect to login page
+          var url = "/login";
+          res.send({url : url});
+        }
+      }
+      else{
+          //redirect to login page
+          var url = "/login";
+          res.send({url : url});
+      }
+    }
+  })
+});
+app.get("/signup", function(req, res){
+  var email = req.query.email, password = req.query.pw;
+  // create new user
+  newUserId = makeid();
+  Email.insertMany([{email : newEmail, password : newPassword, userId : newUserId}]).then(function(){
+    // redirect to login page
+    var url = "/login";
+    res.send({url : url});
+  }).catch(function(err){
+    console.log(err);
+  });
+});
 
 app.get("/mail-detail/", function(req, res){
   var email = req.query.email, userId = req.query.userId, id = req.query.id; //use query or params(if query does not work)
@@ -92,7 +134,7 @@ app.get("/mails/", function(req, res){
   })
   //<----------for testing ------>
 
-  // var email = req.query.email, id = req.query.id;
+  // var email = req.query.email, id = req.query.userId;
   // //check if the id corresponds to the correct email
   // Email.findOne({email : email}, function(err, docs){
   //   if(err) console.log(err);
@@ -156,7 +198,6 @@ app.post("/delete", function(req, res){
       Email.countDocuments({}).exec(function(err, c){
         if(err) console.log(err);
         else{
-          stopInterval(id);
           listeners.delete(id);
         }
       });
@@ -183,14 +224,31 @@ function makeid() {
    return result.join('');
 }
 
+
+// var d = (new Date()).getTime();
+// var sch = {time : d+10000, repeat : true, weekly : false, monthly: false , yearly: false};
+// listeners.set("123", true);
+//
+// addListener("123", sch);
+// function func(){
+//     listeners.delete("123");
+// }
+// setTimeout(func, 5000);
+//
+
 function addListener(id, schedule){
+  listeners.set(id, true);
   let delay = Infinity;
   var endTime = schedule.time;
   var startDate = new Date();
   delay = endTime-startDate.getTime();
   if(delay<0) delay = 0;
-  delay = 1000; //testing. Original delay is overflowing(above2^31-1(max 24 days))
-  listeners.set(id, setTimeout(startInterval, delay, id, schedule));
+  // delay = 1000; //testing. Original delay is overflowing(above2^31-1(max 24 days))
+  var now = (new Date()).getTime();
+  var then = schedule.time;
+  var diff = Math.max((then - now), 0);
+  runAtTime(schedule, id, diff, startInterval);
+  // listeners.set(id, setTimeout(startInterval, delay, id, schedule));
 }
 
 function startInterval(id1, schedule){
@@ -212,13 +270,34 @@ function startInterval(id1, schedule){
     else{
       interval = 365*24*60*60*1000;
     }
-    interval = 10000; // testing Original interval is overflowing(above2^31-1 (max 24 days))
-    var id = setInterval(send, interval, id1);
-    intervalId.set(id1, id);
+    // interval = 10000; // testing Original interval is overflowing(above2^31-1 (max 24 days))
+    var id = xsetInterval(send, interval, id1, interval);
     send(id1);
   }
 }
 
+
+
+
+function runAtTime(schedule, id, diff, func){// similar to setTimeout
+  if(!listeners.has(id)) return;
+  // console.log("timeout : "+diff);
+  if (diff > limit) //setTimeout limit is MAX_INT32=(2^31-1)
+        setTimeout(function() {runAtTime(schedule,id,diff-limit, func);}, limit);
+    else
+        setTimeout(func, diff, id, schedule);
+}
+function xsetInterval(func, diff, id, interval){ //similar to setInterval
+  if(!listeners.has(id)) return;
+  // console.log("interval : " + diff);
+  if (diff > limit) //setTimeout limit is MAX_INT32=(2^31-1)
+        setTimeout(function() {xsetInterval(func,diff-limit,id, interval);}, limit);
+    else
+        {
+          setTimeout(func, diff, id);
+          xsetInterval(func, interval, id, interval);
+        }
+}
 
 function toMili(date, time){
   var d = new Date(date + "T" + time + ":00");
@@ -250,9 +329,6 @@ function send(id){
 // });
   });
 
-}
-function stopInterval(id){
-  clearInterval(intervalId.get(id));
 }
 
 function setAll(){ //if server restarts, this function resets all intervals
