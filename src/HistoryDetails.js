@@ -1,9 +1,9 @@
 import { useHistory, useParams } from "react-router-dom";
 import useFetch from "./useFetch";
 
-const MailDetails = () => {
+const HistoryDetails = () => {
     const { id } = useParams();
-    const { data: mail, error, isPending } = useFetch("http://localhost:8000/mail-detail/?id=" + id);
+    const { data: mail, error, isPending } = useFetch("http://localhost:8000/history-detail/?id=" + id);
     // console.log(mail[0].name);
     const hst = useHistory();
 
@@ -56,4 +56,4 @@ const MailDetails = () => {
     );
 }
 
-export default MailDetails;
+export default HistoryDetails;

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-const MailList = ({ mails, title}) => {
+const HistoryList = ({ history, title}) => {
     return (
         <div className="mail-list">
             <h2>{ title }</h2>
-            {mails.map(mail => (
+            {history.map(mail => (
                     <div className="mail-preview" key={mail.id}>
-                        <Link to={`mails/${mail.id}`}>
+                        <Link to={`history/${mail.id}`}>
                             <h2>{ mail.recipient }</h2>
                             <p>Subject: {mail.subject}</p>
                             <p>{mail.date}</p>
@@ -17,6 +17,6 @@ const MailList = ({ mails, title}) => {
     );
 }
  
-export default MailList;
+export default HistoryList;
 
 
