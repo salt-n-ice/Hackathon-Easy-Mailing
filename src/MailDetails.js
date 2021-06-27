@@ -4,7 +4,7 @@ import useFetch from "./useFetch";
 const MailDetails = () => {
     const { id } = useParams();
     const { data: mail, error, isPending } = useFetch("http://localhost:8000/mail-detail/?id=" + id);
-    // console.log(mail[0].name);
+    
     const hst = useHistory();
 
     const handleClick = () => {
@@ -14,7 +14,7 @@ const MailDetails = () => {
             hst.push("/");
         })
     }
-    
+
     return (
         <div className="mail-details">
             { isPending && <div>Loading....</div>}
@@ -25,7 +25,7 @@ const MailDetails = () => {
                         <h3 className="subject-text"> {mail[0].subject} </h3>
                         <div className="time_n_date">
                             <p>{mail[0].time}</p>
-                            <p>{mail[0].date}</p> 
+                            <p>{mail[0].date}</p>
                         </div>
                     </div>
 
@@ -41,7 +41,7 @@ const MailDetails = () => {
                     </div>
 
                     <div className="mail-text-body">
-                        <p> 
+                        <p>
                             {mail[0].body}
                         </p>
                     </div>
@@ -49,7 +49,7 @@ const MailDetails = () => {
                     <div className="delete-button">
                         <button onClick={handleClick}>delete</button>
                     </div>
-                    
+
                 </article>
             )}
         </div>

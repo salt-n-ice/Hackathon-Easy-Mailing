@@ -7,6 +7,7 @@ import MailDetails from './MailDetails';
 import HistoryDetails from './HistoryDetails';
 import NotFound from './NotFound';
 function App() {
+  // fetch("/mails").then(res=>res.json()).then(d=> console.log(d));
   return (
     <Router>
       <div className="App">

@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 var nodemailer = require('nodemailer');
 const cors = require('cors');
 app.use(cors());
-// app.use(express.static("public"));
+app.use(express.static("public", {index: false}));
 app.use(bodyParser.json({extended: false}));
 
 // parameters
@@ -37,9 +37,12 @@ var listeners = new Map();
 // start all the listeners again if server restarts
 // setAll();
 
+app.get("/", function(req, res){
+  res.sendFile(__dirname+"/signin.html");
+})
 
-app.get("/login", function(req, res){
-  var email = req.query.email, password = req.query.pw;
+app.post("/signin", function(req, res){
+  var email = req.body.email, password = req.body.pw;
   //verify the password and email
   Email.findOne({email : email}, function(err, docs){
     if(err) console.log(err);
@@ -47,30 +50,30 @@ app.get("/login", function(req, res){
       if(docs){
         if(docs.password==password){
           //redirect to home with parameters passed as email and newUserId
-          var url = "/mail-detail/?email=" + email+"&userId=" + docs.userId;
+          var url = "/mails/?email=" + email+"&userId=" + docs.userId;
           res.send({url : url});
         }
         else{
-          //redirect to login page
-          var url = "/login";
+          //redirect to signin page
+          var url = "/signin";
           res.send({url : url});
         }
       }
       else{
-          //redirect to login page
-          var url = "/login";
+          //redirect to signin page
+          var url = "/signin";
           res.send({url : url});
       }
     }
   })
 });
-app.get("/signup", function(req, res){
-  var email = req.query.email, password = req.query.pw;
+app.post("/signup", function(req, res){
+  var email = req.body.email, password = req.body.pw;
   // create new user
   newUserId = makeid();
-  Email.insertMany([{email : newEmail, password : newPassword, userId : newUserId}]).then(function(){
-    // redirect to login page
-    var url = "/login";
+  Email.insertMany([{email : email, password : password, userId : newUserId}]).then(function(){
+    // redirect to signin page
+    var url = "/signin";
     res.send({url : url});
   }).catch(function(err){
     console.log(err);
@@ -135,6 +138,7 @@ app.get("/mails/", function(req, res){
   //<----------for testing ------>
 
   // var email = req.query.email, id = req.query.userId;
+  // console.log(email + " "+id);
   // //check if the id corresponds to the correct email
   // Email.findOne({email : email}, function(err, docs){
   //   if(err) console.log(err);
