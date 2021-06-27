@@ -130,7 +130,7 @@ app.get("/mails/", function(req, res){
     if(err) console.log(err);
     else{
       for(let i=0; i < docs.length; ++i){
-          ret.push(docs[i].data);
+          if(docs[i].data.recipient) ret.push(docs[i].data);
       }
       res.send({data: ret});
     }
